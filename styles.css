@@ -55,7 +55,11 @@ body {
   border: 2px solid var(--border-secondary-color); 
   border-radius: 0.5rem;
   padding: 1rem;
-  outline-color: var(--bg-primary-color);
+}
+
+.new-task-container input:focus {
+  outline: none;
+  border-color: var(--bg-primary-color);
 }
 
 .new-task-button {
@@ -71,6 +75,11 @@ body {
   padding: 1rem;
 }
 
-.new-task-button:hover {
-  background-color: var(--button-hover-color);
+.tasks-container {
+  background-color: var(--bg-tertiary-color);
+  padding: 3rem 2rem;
+  margin-top: 6rem;
+  border-radius: 1rem;
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.3);
+  width: 100%;
 }
