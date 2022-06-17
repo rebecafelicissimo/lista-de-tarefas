@@ -4,11 +4,73 @@
   box-sizing: border-box;
 }
 
+:root {
+  --bg-primary-color: #BEE6CE;
+  --bg-secondary-color: #8DFFCD;
+  --bg-tertiary-color: #F6F6F6;
+  --border-primary-color: #F6F6F6;
+  --border-secondary-color: #c2c2c2;
+  --button-color: #4F9D69;
+  --button-hover-color: #68D89B;
+  --text-primary-color: #030303;  
+  --text-secondary-color: #ffffff;
+}
+
 html {
-  font-size: 62.5%;
+  font-size: 62.5%; /* 10px = 1rem*/
 }
 
 body {
   font-family: 'Poppins', sans-serif;
   scroll-behavior: smooth;
+  background-color: var(--bg-primary-color);
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  border: 2px solid var(--border-primary-color);
+  padding: 1.5rem 1rem;
+  width: 90%;
+}
+
+.new-task-container {
+  width: 100%;
+  background-color: var(--bg-tertiary-color);
+  border-radius: 1rem;
+  box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.3);
+  display: flex;
+  padding: 3rem 2rem;
+  gap: 1rem;
+}
+
+.new-task-container input {
+  width: 100%;
+  flex: 3;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-indent: 0.5rem; 
+  border: 2px solid var(--border-secondary-color); 
+  border-radius: 0.5rem;
+  padding: 1rem;
+  outline-color: var(--bg-primary-color);
+}
+
+.new-task-button {
+  background-color: var(--button-color);
+  border-radius: 0.5rem;
+  border: none;
+  color: var(--text-secondary-color);
+  cursor: pointer;
+  flex: 1;
+  font-weight: 700;
+  font-size: 1.2rem;
+  height: 100%;
+  padding: 1rem;
+}
+
+.new-task-button:hover {
+  background-color: var(--button-hover-color);
 }
