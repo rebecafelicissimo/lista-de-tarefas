@@ -14,6 +14,8 @@
   --button-hover-color: #68D89B;
   --text-primary-color: #030303;  
   --text-secondary-color: #ffffff;
+  --error-color: #ff0000;
+  --success-color: #008000;
 }
 
 html {
@@ -46,7 +48,7 @@ body {
   gap: 1rem;
 }
 
-.new-task-container input {
+.new-task-input {
   width: 100%;
   flex: 3;
   font-size: 1.2rem;
@@ -82,4 +84,42 @@ body {
   border-radius: 1rem;
   box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.3);
   width: 100%;
+}
+
+.task-item {
+  /* display: grid;
+  grid-template-columns: 60% auto auto;   */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid var(--button-color);
+  border-radius: 0.5rem;
+  padding-block: 1.5rem;
+  padding-inline: 1rem;
+  margin-block: 0.8rem;
+  gap: 1.5rem;
+}
+
+.task-item .task-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.task-item i {
+  background-color: var(--button-color);
+  color: var(--bg-tertiary-color);
+  padding: 0.8rem;
+  border-radius: 0.5rem;
+}
+
+
+/* Validações */
+.error {
+  border: 2px solid var(--error-color);
+}
+
+.error::placeholder {
+  color: var(--error-color);
 }

@@ -1,0 +1,40 @@
+Aprendizados durante a execução do tutorial
+
+Na validação do input, onde se estiver vazio (sem valor), vamos adicionar a borda vermelha
+Vamos criar uma função dentro de uma variável
+const validateInput = () => {
+  temos duas formas:
+  1º usando if e else
+  if(inputElement.value.trim().length > 0) {
+    return true
+  } else {
+    return false
+  }
+}
+
+2º forma 
+const validateInput = () => {
+  return inputElement.value.trim().length > 0;
+}
+
+3º forma 
+const validateInput = () => inputElement.value.trim().length > 0;
+
+4º Passo Vamos criar uma função para adicionar as tarefas e nessa função, vamos validar nosso input
+Podemos colocar a função dentro de uma variável
+const handleAddTask = () => {
+  const inputIsValid = validateInput();
+
+  if(!inputIsValid) {
+    return inputElement.classList.add('error');
+  }
+}
+
+Ou criar uma função normal
+function handleAddTask() {
+  const inputIsValid = validateInput();
+
+  if(!inputIsValid) {
+    return inputElement.classList.add('error');
+  }
+}
