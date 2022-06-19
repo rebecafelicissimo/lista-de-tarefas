@@ -6,7 +6,7 @@
 
 :root {
   --bg-primary-color: #BEE6CE;
-  --bg-secondary-color: #8DFFCD;
+  --bg-secondary-color: #4B2F32;
   --bg-tertiary-color: #F6F6F6;
   --border-primary-color: #F6F6F6;
   --border-secondary-color: #c2c2c2;
@@ -30,6 +30,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.2rem;
 }
 
 .container {
@@ -86,7 +87,7 @@ body {
   width: 100%;
 }
 
-.task-item {
+.task-item-container {
   /* display: grid;
   grid-template-columns: 60% auto auto;   */
   display: flex;
@@ -99,19 +100,20 @@ body {
   margin-block: 0.8rem;
   gap: 1.5rem;
 }
-
-.task-item .task-icon-container {
+/* 
+.task-item-container .task-icon-container {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1.5rem;
-}
+} */
 
-.task-item i {
+.task-item-container i {
   background-color: var(--button-color);
   color: var(--bg-tertiary-color);
   padding: 0.8rem;
   border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 
@@ -122,4 +124,8 @@ body {
 
 .error::placeholder {
   color: var(--error-color);
+}
+
+.completed {
+  text-decoration: line-through;
 }

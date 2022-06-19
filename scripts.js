@@ -1,69 +1,97 @@
-// 1º Vamos pegar os elementos que queremos utilizar e guardar em variáveis
-const inputElement = document.querySelector('.new-task-input');
-const addTaskButton = document.querySelector('.new-task-button');
+// Declaração de variáveis no escopo global da aplicação
+const inputElement = document.querySelector('.new-task-input')
+const addTaskButton = document.querySelector('.new-task-button')
+const tasksContainer = document.querySelector('.tasks-container')
+/* ==================================================== */
 
-// 13º criar uma cariável para pegar a div com a classe tasks-container
-const tasksContainer = document.querySelector('.tasks-container');
+// Obs.: TODA FUNÇÃO QUE EU CRIAR, OBRIGATORIAMENTE TENHO QUE CHAMÁ-LA PARA SER EXECUTADA, SENÃO NÃO FUNCIONA.
 
-// 2º Vamos fazer a validação do input, onde se estiver vazio (sem valor), vamos adicionar a borda vermelha
-const validateInput = () => {  
-  return inputElement.value.trim().length > 0;
+/* ==================================================== */
+
+// Validação do campo de input para quando for adicionar ou não uma tarefa
+const validateTaskInput = () => {
+  if (inputElement.value.trim().length > 0) {
+    return true // tem coisas escritas
+  } else {
+    return false // não tem nada escrito
+  }
 }
 
-// 3º Vamos add um evento de click no botão para capturar quando o usuário clicar com o mouse para add uma tarefa
-addTaskButton.addEventListener('click', () => handleAddTask());
+// const handleInputChange = () => {
+//   const inputIsValid = validateTaskInput();
 
-// 4º Vamos criar uma função para adicionar as tarefas e nessa função, vamos validar nosso input
-function handleAddTask() {
-  const inputIsValid = validateInput();
+//   if(inputIsValid) {
+//     return inputElement.classList.remove("error");
+//   }
+// }
 
-  if(!inputIsValid) {
-    return inputElement.classList.add('error');
-  } 
+// inputElement.addEventListener("change", () => handleInputChange());
+const addTaskWhenIClickAtButton = () => {
+  const inputIsValid = validateTaskInput()
 
-  // 6º Criar o container tasks-item com o javascript que terá todas as tarefas criadas
+  if (inputIsValid === false) {
+    return inputElement.classList.add('error')
+  }
+
+  // Adicionando as tarefas via javascript
+  // criar os elementos html via javascript
   const taskItemContainer = document.createElement('div')
-  taskItemContainer.classList.add('task-item')
+  taskItemContainer.classList.add('task-item-container')
 
-  // 7º Criar o parágrafo que terá a tarefa a ser realizada
-  const taskContent = document.createElement('p');
-  taskContent.innerText = inputElement.value;
+  const taskContent = document.createElement('p')
+  taskContent.innerText = inputElement.value
 
-  // 8º Criar um container para adicionar os ícones
-  const iconContainer = document.createElement('div');
-  iconContainer.classList.add('task-icon-container');
+  const taskIconDelete = document.createElement('i')
+  taskIconDelete.classList.add('fa')
+  taskIconDelete.classList.add('fa-trash-alt')
+  // /criar os elementos html via javascript
 
-  // 9º Vamos criar o ícone com o botão de checked
-  const checkItemDone = document.createElement('i'); // check-box
-  checkItemDone.classList.add('fa');
-  checkItemDone.classList.add('fa-check-square'); 
-  checkItemDone.classList.add('icon');
+  // criar a estrutura html com os elementos
+  taskItemContainer.appendChild(taskContent) // p
+  taskItemContainer.appendChild(taskIconDelete) // i
 
-  // 10º Vamos criar o ícone com a lixeira
-  const deleteItem = document.createElement('i'); // lata de lixo
-  deleteItem.classList.add('fa');
-  deleteItem.classList.add('fa-trash-alt');
-  deleteItem.classList.add('icon');
+  tasksContainer.appendChild(taskItemContainer)
+  // /criar a estrutura html com os elementos
 
-  // 11º Vamos colocar os ícones criados dentro do iconContainer
-  iconContainer.appendChild(checkItemDone);
-  iconContainer.appendChild(deleteItem);
+  // Riscar e deletar uma tarefa
+  // Tarefa concluida
+  taskContent.addEventListener("click", () => taskCompleted(taskContent));
 
-  // 12º Vamos colocar todos os elementos criados dentro do seu pai, no caso o taskItemContainer
-  taskItemContainer.appendChild(taskContent); // p
-  taskItemContainer.appendChild(iconContainer); // i
+  // Tarefa deletada
+  taskIconDelete.addEventListener("click", () => taskDeleted(taskItemContainer, taskContent));
 
-  // 14º Precisamos colocar a tasksItemContainer dentro da div tasks-container no html, mas antes temos que criar uma variável (13º)
-  tasksContainer.appendChild(taskItemContainer);
-}
+  inputElement.value = "";
+};
 
-// 5º Precisamos tirar a borda vermelha quando começarmos a digitar algo e para isso adicionar um evento de escutar mudanças no input
+
 const handleInputChange = () => {
-  const inputIsValid = validateInput();
-  
-  if(inputIsValid) {
-    return inputElement.classList.remove('error');
-  }    
+  const inputIsValid = validateTaskInput();
+
+  if (inputIsValid) {
+    return inputElement.classList.remove("error");
+  }
+};
+
+addTaskButton.addEventListener('click', () => addTaskWhenIClickAtButton());
+
+inputElement.addEventListener("change", () => handleInputChange());
+
+const taskCompleted = (taskContent) => {
+  const tasks = tasksContainer.childNodes;
+
+  for( const task of tasks) {
+    if(task.firstChild.isSameNode(taskContent)) {
+      task.firstChild.classList.toggle("completed");
+    }
+  }
 }
 
-inputElement.addEventListener('change', () => handleInputChange());
+const taskDeleted = (taskItemContainer, taskContent) => {
+  const tasks = tasksContainer.childNodes;
+
+  for( const task of tasks) {
+    if(task.firstChild.isSameNode(taskContent)) {
+      taskItemContainer.remove();
+    }
+  }
+}
