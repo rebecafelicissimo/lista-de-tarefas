@@ -55,43 +55,108 @@ const addTaskWhenIClickAtButton = () => {
 
   // Riscar e deletar uma tarefa
   // Tarefa concluida
-  taskContent.addEventListener("click", () => taskCompleted(taskContent));
+  taskContent.addEventListener('click', () => taskCompleted(taskContent))
 
   // Tarefa deletada
-  taskIconDelete.addEventListener("click", () => taskDeleted(taskItemContainer, taskContent));
+  taskIconDelete.addEventListener('click', () =>
+    taskDeleted(taskItemContainer, taskContent)
+  )
 
-  inputElement.value = "";
-};
+  inputElement.value = ''
 
+  updateLocalStorageBrowser()
+}
 
+/* ==================================================== */
 const handleInputChange = () => {
-  const inputIsValid = validateTaskInput();
+  const inputIsValid = validateTaskInput()
 
   if (inputIsValid) {
-    return inputElement.classList.remove("error");
+    return inputElement.classList.remove('error')
   }
-};
+}
 
-addTaskButton.addEventListener('click', () => addTaskWhenIClickAtButton());
+addTaskButton.addEventListener('click', () => addTaskWhenIClickAtButton())
 
-inputElement.addEventListener("change", () => handleInputChange());
+inputElement.addEventListener('change', () => handleInputChange())
 
-const taskCompleted = (taskContent) => {
-  const tasks = tasksContainer.childNodes;
+// Nas duas funções abaixo estamos verificando se o item que o usuário está clicando é o mesmo para executar a função de riscar ou deletar a tarefa
+const taskCompleted = taskContent => {
+  const tasks = tasksContainer.childNodes
 
-  for( const task of tasks) {
-    if(task.firstChild.isSameNode(taskContent)) {
-      task.firstChild.classList.toggle("completed");
+  for (const task of tasks) {
+    if (task.firstChild.isSameNode(taskContent)) {
+      task.firstChild.classList.toggle('completed')
     }
   }
+  updateLocalStorageBrowser()
 }
 
 const taskDeleted = (taskItemContainer, taskContent) => {
-  const tasks = tasksContainer.childNodes;
+  const tasks = tasksContainer.childNodes
 
-  for( const task of tasks) {
-    if(task.firstChild.isSameNode(taskContent)) {
-      taskItemContainer.remove();
+  for (const task of tasks) {
+    if (task.firstChild.isSameNode(taskContent)) {
+      taskItemContainer.remove()
     }
   }
+  updateLocalStorageBrowser()
 }
+/* ==================================================== */
+
+// Armazenando as tarefas no Local Storage do nosso navegador
+const updateLocalStorageBrowser = () => {
+  const tasks = tasksContainer.childNodes
+
+  const localStorageTasks = [...tasks].map(task => {
+    const content = task.firstChild
+    const isCompleted = content.classList.contains('completed')
+
+    return { description: content.innerText, isCompleted }
+  })
+
+  localStorage.setItem('tasks', JSON.stringify(localStorageTasks))
+}
+// /Armazenando as tarefas no Local Storage do nosso navegador
+
+// Trazer as tarefas to LocalStorage do Browser para a minha página do navegador
+const refreshTasksUsingLocalStorage = () => {
+  const tasksFromLocalStorage = JSON.parse(localStorage.getItem('tasks'))
+
+  if (!tasksFromLocalStorage) return
+
+  for (const task of tasksFromLocalStorage) {
+    const taskItemContainer = document.createElement('div')
+    taskItemContainer.classList.add('task-item-container')
+
+    const taskContent = document.createElement('p')
+    taskContent.innerText = task.description;
+
+    if (task.isCompleted) {
+      taskContent.classList.add("completed");
+    }
+
+    const taskIconDelete = document.createElement('i')
+    taskIconDelete.classList.add('fa')
+    taskIconDelete.classList.add('fa-trash-alt')
+    // /criar os elementos html via javascript
+
+    // criar a estrutura html com os elementos
+    taskItemContainer.appendChild(taskContent) // p
+    taskItemContainer.appendChild(taskIconDelete) // i
+
+    tasksContainer.appendChild(taskItemContainer)
+    // /criar a estrutura html com os elementos
+
+    // Riscar e deletar uma tarefa
+    // Tarefa concluida
+    taskContent.addEventListener('click', () => taskCompleted(taskContent))
+
+    // Tarefa deletada
+    taskIconDelete.addEventListener('click', () =>
+      taskDeleted(taskItemContainer, taskContent)
+    )
+  }
+}
+
+refreshTasksUsingLocalStorage()
