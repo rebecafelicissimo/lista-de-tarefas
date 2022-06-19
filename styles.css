@@ -5,15 +5,18 @@
 }
 
 :root {
-  --bg-primary-color: #BEE6CE;
+  --bg-primary-color: #BEE6CE; 
   --bg-secondary-color: #4B2F32;
   --bg-tertiary-color: #F6F6F6;
+
   --border-primary-color: #F6F6F6;
-  --border-secondary-color: #c2c2c2;
-  --button-color: #4F9D69;
-  --button-hover-color: #68D89B;
+  --border-secondary-color: #c2c2c2; 
+
+  --button-hover-color: #643F43;
+
   --text-primary-color: #030303;  
   --text-secondary-color: #ffffff;
+
   --error-color: #ff0000;
   --success-color: #008000;
 }
@@ -62,11 +65,11 @@ body {
 
 .new-task-container input:focus {
   outline: none;
-  border-color: var(--bg-primary-color);
+  border-color: var(--bg-secondary-color);
 }
 
 .new-task-button {
-  background-color: var(--button-color);
+  background-color: var(--bg-secondary-color);
   border-radius: 0.5rem;
   border: none;
   color: var(--text-secondary-color);
@@ -78,6 +81,10 @@ body {
   padding: 1rem;
 }
 
+.new-task-button:hover {
+  background-color: var(--button-hover-color);
+}
+
 .tasks-container {
   background-color: var(--bg-tertiary-color);
   padding: 3rem 2rem;
@@ -87,19 +94,22 @@ body {
   width: 100%;
 }
 
-.task-item-container {
-  /* display: grid;
-  grid-template-columns: 60% auto auto;   */
+.task-item-container {  
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 2px solid var(--button-color);
+  border: 2px solid var(--bg-secondary-color);
   border-radius: 0.5rem;
   padding-block: 1.5rem;
   padding-inline: 1rem;
   margin-block: 0.8rem;
   gap: 1.5rem;
 }
+
+.task-item-container p {
+  cursor: pointer;
+}
+
 /* 
 .task-item-container .task-icon-container {
   display: flex;
@@ -109,11 +119,17 @@ body {
 } */
 
 .task-item-container i {
-  background-color: var(--button-color);
-  color: var(--bg-tertiary-color);
+  background-color: var(--border-secondary-color);
+  color: var(--bg-secondary-color);
   padding: 0.8rem;
   border-radius: 0.5rem;
   cursor: pointer;
+}
+
+.task-item-container i:hover {
+  background: none;
+  border: 2px solid var(--error-color);
+  color: var(--error-color);
 }
 
 
@@ -128,4 +144,27 @@ body {
 
 .completed {
   text-decoration: line-through;
+  font-weight: 700;
+  color: var(--success-color);
+}
+
+/* media queries */
+@media (min-width: 530px) and (max-width: 1550px) {
+  div.container {
+    width: 50%;
+  }
+
+  .new-task-container input,
+  .new-task-container button,
+  .task-item-container p {
+    padding: 1.6rem;
+    font-size: 1.4rem;
+    line-height: 150%;
+  }
+
+  .task-item-container p {
+    padding: 0;
+  }
+
+
 }

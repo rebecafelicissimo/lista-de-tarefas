@@ -17,15 +17,6 @@ const validateTaskInput = () => {
   }
 }
 
-// const handleInputChange = () => {
-//   const inputIsValid = validateTaskInput();
-
-//   if(inputIsValid) {
-//     return inputElement.classList.remove("error");
-//   }
-// }
-
-// inputElement.addEventListener("change", () => handleInputChange());
 const addTaskWhenIClickAtButton = () => {
   const inputIsValid = validateTaskInput()
 
